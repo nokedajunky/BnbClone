@@ -1,14 +1,24 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+
 function RegisterPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function registerUser(event) {
+  async function registerUser(event) {
     event.preventDefault()
-    axios.get('http://localhost:3000/route')
+    try {
+      await axios.post('/register', {
+        name,
+        email,
+        password,
+      })
+      alert('Registration done!')
+    } catch (e) {
+      alert('Registration failed! Try again later.')
+    }
   }
 
   return (
